@@ -24,13 +24,13 @@ def embed_note_and_store(note_id, title, content):
 # Retrieve relevant notes
 def retrieve_relevant_notes(query, n_results=8):
     embedding = model.encode(query, normalize_embeddings=True).tolist()
-    print("Query embedding length:", len(embedding))
+    #print("Query embedding length:", len(embedding))
     results = collection.query(query_embeddings=[embedding], n_results=n_results)
     
     top_matches = results['documents'][0] if results['documents'] else []
     distances = results['distances'][0] if results['distances'] else []
     #print("Retrieved relevant notes:", top_matches)
-    print("Distances:", distances)
+    #print("Distances:", distances)
 
     return top_matches
 
