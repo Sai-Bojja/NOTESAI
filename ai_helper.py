@@ -16,6 +16,7 @@ def embed_note_and_store(note_id, title, content):
     full_text = f"{title}\n{content}"
     embedding = model.encode(full_text).tolist()
     collection.add(documents=[full_text], embeddings=[embedding], ids=[str(note_id)])
+    print(f"*** EMBEDDING AND STORING NOTE ID: {note_id} ***")
     print(f"Stored note {note_id}: {full_text}")
 
 # Retrieve relevant notes

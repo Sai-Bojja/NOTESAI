@@ -4,59 +4,35 @@
     <title>NOTESAI - MVP</title>
     <link rel="stylesheet" href="/static/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="/static/script.js" defer></script> <meta name="viewport" content="width=device-width, initial-scale=1.0"> </head>
+</head>
 <body>
-    <header>
-        <h1>NOTESAI - Note Taking</h1>
-    </header>
+    <h1>NOTESAI</h1>
+    <form method="POST" action="/add">
+        <input type="text" name="title" placeholder="Note title" required>
+        <textarea name="content" placeholder="Your note here..." rows="5" required></textarea>
+        <button type="submit">Add Note</button>
+    </form>
 
-    <div class="container">
-        <main>
-            <section class="note-form-section">
-                <h2>Add New Note</h2>
-                <form method="POST" action="/add">
-                    <label for="note-title">Note title</label>
-                    <input type="text" id="note-title" name="title" placeholder="Enter note title" required>
-                    <label for="note-content">Your note here...</label>
-                    <textarea id="note-content" name="content" placeholder="Type your note here..." rows="5" required></textarea>
-                    <button type="submit">Add Note</button>
-                </form>
-            </section>
+    <h2>Ask a Question</h2>
+    <form method="POST" action="/ask">
+        <input type="text" name="query" placeholder="Ask your question..." required>
+        <button type="submit">Ask</button>
+    </form>
 
-            <section class="ask-question-section">
-                <h2>Ask a Question</h2>
-                <form method="POST" action="/ask">
-                    <label for="question-input">Ask your question...</label>
-                    <input type="text" id="question-input" name="query" placeholder="Ask a question about your notes" required>
-                    <button type="submit">Ask</button>
-                </form>
-
-                {% if results %}
-                <div class="ai-answer-container">
-                    <h3>AI Answer:</h3>
-                    <p>{{ results }}</p>
-                </div>
-                {% endif %}
-            </section>
-        </main>
-
-        <aside class="notes-sidebar">
-            <button class="sidebar-toggle" aria-label="Toggle Notes Sidebar">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                    <path fill-rule="evenodd" d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12.75A.75.75 0 013.75 12h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12.75zM3 18.75A.75.75 0 013.75 18h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 18.75z" clip-rule="evenodd" />
-                </svg>
-            </button>
-            <h4>Saved Notes</h4>
-            <div class="notes-list">
-                {% for note in notes %}
-                    <div class="note-preview">
-                        <h5>{{ note[1] }}</h5>
-                        <p>{{ note[2] | truncate(100) }}</p> <a href="/delete/{{ note[0] }}">Delete</a>
-                    </div>
-                {% endfor %}
-            </div>
-        </aside>
+    {% if results %}
+    <div class="ai-answer-container">
+        <h3>AI Answer:</h3>
+        <p>{{ results }}</p>
     </div>
+    {% endif %}
 
+    <h4>Saved Notes</h4>
+    {% for note in notes %}
+        <div class="note">
+            <h3>{{ note[1] }}</h3>
+            <p>{{ note[2] }}</p>
+            <a href="/delete/{{ note[0] }}">Delete</a>
+        </div>
+    {% endfor %}
 </body>
 </html>
