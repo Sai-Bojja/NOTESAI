@@ -1,13 +1,13 @@
-/* General Styles  */
+/* General Styles (unchanged) */
 body {
     font-family: 'Open Sans', sans-serif;
-    padding: 20px; /* Reduced padding  */
+    padding: 20px;
     background: #f9f9fb;
     color: #333;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    min-height: 100vh; /* Ensure full height  */
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -49,12 +49,12 @@ h4 {
     padding-bottom: 5px;
 }
 
-/* Layout Styles  */
+/* Layout Styles */
 .container {
     display: grid;
-    grid-template-columns: 1fr 300px; /* Main content takes the remaining space, sidebar is 300px wide  */
+    grid-template-columns: 300px 1fr;  /* Sidebar first, then main content */
     gap: 20px;
-    flex: 1; /* Grow to fill available space  */
+    flex: 1;
 }
 
 main {
@@ -69,11 +69,11 @@ aside.notes-sidebar {
     border-radius: 16px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     padding: 20px;
-    overflow-y: auto; /* Scroll if content overflows  */
-    height: calc(100% - 40px); /* Adjust for padding  */
+    overflow-y: auto;
+    height: calc(100% - 40px);
     position: sticky;
     top: 20px;
-    transition: transform 0.3s ease-in-out, width 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Smooth transitions  */
+    transition: transform 0.3s ease-in-out, width 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .sidebar-toggle {
@@ -132,7 +132,14 @@ aside.notes-sidebar {
     text-decoration: underline;
 }
 
-/* Form Styles (unchanged from previous)  */
+/* Sidebar Hidden State */
+.notes-sidebar.sidebar-hidden {
+    transform: translateX(-100%);  /* Changed to -100% for left side */
+    width: 0;
+    opacity: 0;
+}
+
+/* Form Styles (unchanged) */
 form {
     background: #fff;
     padding: 40px;
@@ -194,7 +201,7 @@ button[type="submit"]:hover {
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* AI Answer Styles (unchanged from previous)  */
+/* AI Answer Styles (unchanged) */
 .ai-answer-container {
     margin-top: 40px;
     padding: 30px;
@@ -216,7 +223,7 @@ button[type="submit"]:hover {
     font-size: 1.1rem;
 }
 
-/* Note Styles (unchanged from previous)  */
+/* Note Styles (unchanged) */
 .note {
     background: #fff;
     padding: 30px;
@@ -256,18 +263,11 @@ button[type="submit"]:hover {
     text-decoration: underline;
 }
 
-/* Sidebar Hidden State  */
-.notes-sidebar.sidebar-hidden {
-    transform: translateX(100%); /* Slide off-screen  */
-    width: 0;
-    opacity: 0;
-}
-
-/* Responsiveness  */
+/* Responsiveness (unchanged) */
 @media (max-width: 768px) {
     .container {
-        grid-template-columns: 1fr; /* Stack on smaller screens  */
-        grid-template-rows: auto 1fr; /* Auto height for main, remaining for sidebar  */
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
     }
 
     main {
@@ -275,5 +275,16 @@ button[type="submit"]:hover {
     }
 
     aside.notes-sidebar {
-        position: static; /* No sticky  */
-        height: auto
+        position: static;
+        height: auto;
+        overflow-y: auto;
+    }
+
+    form, .note, .ai-answer-container {
+        padding: 20px;
+    }
+
+    input[type="text"], textarea, button[type="submit"] {
+        font-size: 1rem;
+    }
+}
