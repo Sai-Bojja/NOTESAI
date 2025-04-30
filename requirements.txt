@@ -1,2 +1,5 @@
 flask
 openai
+gunicorn
+sentence-transformers
+chromadb
