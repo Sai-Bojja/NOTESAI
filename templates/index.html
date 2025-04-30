@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NOTESAI - MVP</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>NOTESAI - Note Taking</h1>
+    <form method="POST" action="/add">
+        <input type="text" name="title" placeholder="Note title" required>
+        <textarea name="content" placeholder="Your note here..." rows="5" required></textarea>
+        <button type="submit">Add Note</button>
+    </form>
+
+    <h2>Ask a Question</h2>
+    <form method="POST" action="/ask">
+        <input type="text" name="query" placeholder="Ask your question..." required>
+        <button type="submit">Ask</button>
+    </form>
+
+    {% if results %}
+    <div class="ai-answer-container">
+        <h3>AI Answer:</h3>
+        <p>{{ results }}</p>
+    </div>
+    {% endif %}
+
+    <h4>Saved Notes</h4>
+    {% for note in notes %}
+        <div class="note">
+            <h3>{{ note[1] }}</h3>
+            <p>{{ note[2] }}</p>
+            <a href="/delete/{{ note[0] }}">Delete</a>
+        </div>
+    {% endfor %}
+</body>
+</html>

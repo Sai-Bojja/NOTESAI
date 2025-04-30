@@ -1,0 +1,185 @@
+/* General Styles  */
+body {
+    font-family: 'Open Sans', sans-serif;
+    padding: 40px;
+    background: #f9f9fb; /* A very light, slightly off-white background  */
+    color: #333;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased; /* Smoother font rendering  */
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #2e3131; /* Darker heading color  */
+    letter-spacing: -1px;
+}
+
+h2 {
+    color: #2e3131;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #eaeaea; /* Light border  */
+    padding-bottom: 10px;
+}
+
+h3 {
+    color: #444;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+h4 {
+    color: #555;
+    font-size: 1.1rem;
+    margin-top: 40px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+}
+
+/* Form Styles  */
+form {
+    background: #fff;
+    padding: 40px;
+    margin-bottom: 40px;
+    border-radius: 16px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08); /* Deeper shadow  */
+    border: 1px solid #eee;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: #777;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+input[type="text"],
+textarea {
+    width: calc(100% - 30px);
+    padding: 15px;
+    margin-bottom: 25px;
+    border: 2px solid #e8e8e8; /* Thicker border  */
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    outline: none;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    border-color: #558b2f; /* A more sophisticated green  */
+    box-shadow: 0 0 5px rgba(85, 139, 47, 0.2);
+}
+
+textarea {
+    min-height: 150px;
+    line-height: 1.4;
+}
+
+button[type="submit"] {
+    background: linear-gradient(to right, #689f38, #558b2f); /* Subtle gradient  */
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* AI Answer Styles  */
+.ai-answer-container {
+    margin-top: 40px;
+    padding: 30px;
+    border: 2px solid #e0f2f1; /* Softer border color  */
+    background-color: #f0faf9; /* Very light teal  */
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.ai-answer-container h3 {
+    color: #26a69a; /* A classy teal  */
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.ai-answer-container p {
+    color: #444;
+    font-size: 1.1rem;
+}
+
+/* Note Styles  */
+.note {
+    background: #fff;
+    padding: 30px;
+    margin: 30px 0;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f0f0f0;
+    transition: transform 0.1s ease-in-out;
+}
+
+.note:hover {
+    transform: translateY(-5px);
+}
+
+.note h3 {
+    color: #546e7a; /* A sophisticated gray-blue  */
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.note p {
+    color: #555;
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+
+.note a {
+    color: #d32f2f; /* A deeper red  */
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease-in-out;
+}
+
+.note a:hover {
+    color: #b71c1c;
+    text-decoration: underline;
+}
+
+/* Responsiveness (Basic)  */
+@media (max-width: 768px) {
+    body {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+        margin-bottom: 30px;
+    }
+
+    form, .note, .ai-answer-container {
+        padding: 20px;
+    }
+
+    input[type="text"], textarea, button[type="submit"] {
+        font-size: 1rem;
+    }
+}
