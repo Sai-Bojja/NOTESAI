@@ -29,7 +29,7 @@ def retrieve_relevant_notes(query, n_results=8):
     
     top_matches = results['documents'][0] if results['documents'] else []
     distances = results['distances'][0] if results['distances'] else []
-    print("Retrieved relevant notes:", top_matches)
+    #print("Retrieved relevant notes:", top_matches)
     print("Distances:", distances)
 
     return top_matches
