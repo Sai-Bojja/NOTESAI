@@ -7,6 +7,8 @@
 </head>
 <body>
     <h1>NOTESAI</h1>
+
+    <h2>Add a Note</h2>
     <form method="POST" action="/add">
         <input type="text" name="title" placeholder="Note title" required>
         <textarea name="content" placeholder="Your note here..." rows="5" required></textarea>
@@ -34,5 +36,31 @@
             <a href="/delete/{{ note[0] }}">Delete</a>
         </div>
     {% endfor %}
+
+    <!-- Clear All Notes Button -->
+    <div style="margin-top: 30px;">
+        <button id="clear-notes-btn">Clear All Notes</button>
+        <p id="clear-status" style="color: green; font-weight: bold;"></p>
+    </div>
+
+    <script>
+        document.getElementById("clear-notes-btn").addEventListener("click", function () {
+            fetch("/clear_notes", {
+                method: "POST"
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("clear-status").innerText = data.message;
+                // Optionally refresh the page to reflect empty notes
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1500);
+            })
+            .catch(error => {
+                console.error("Error clearing notes:", error);
+                document.getElementById("clear-status").innerText = "Failed to clear notes.";
+            });
+        });
+    </script>
 </body>
 </html>

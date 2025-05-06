@@ -3,13 +3,12 @@ from chromadb import PersistentClient
 import openai
 import os
 
-# Set your OpenAI API key securely
 openai.api_key = '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'
 
-# Load embedding model
+
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
-# Chroma client with persistence
+# Chroma 
 chroma_client = PersistentClient(path="./chroma_db")
 collection = chroma_client.get_or_create_collection("notesai")
 
@@ -21,8 +20,8 @@ def embed_note_and_store(note_id, title, content):
     collection.add(documents=[full_text], embeddings=[embedding], ids=[str(note_id)])
     print(f"Stored note {note_id}: {full_text}")
 
-# Retrieve relevant notes
-def retrieve_relevant_notes(query, n_results=8):
+# relevant notes
+def retrieve_relevant_notes(query, n_results=12):
     embedding = model.encode(query, normalize_embeddings=True).tolist()
     #print("Query embedding length:", len(embedding))
     results = collection.query(query_embeddings=[embedding], n_results=n_results)
@@ -34,15 +33,26 @@ def retrieve_relevant_notes(query, n_results=8):
 
     return top_matches
 
+def clear_chroma_notes():
+    try:
+        all_ids = collection.get()["ids"]
+        if all_ids:
+            collection.delete(ids=all_ids)
+            print("All documents in 'notesai' collection have been deleted.")
+        else:
+            print("No documents to delete.")
+    except Exception as e:
+        print(f"Error clearing collection: {e}")
 
-# Use OpenAI to synthesize answers from retrieved notes
+
+
 def rag_query(query):
     top_matches = retrieve_relevant_notes(query)
 
     if not top_matches:
         return "I couldn't find any relevant notes to answer your question."
 
-    # Use top 2-3 matches for prompt (trim long context)
+    # 2-3 matches 
     context = "\n\n".join(top_matches[:3])
     prompt = (
         f"Answer the following question only using the context below.\n"

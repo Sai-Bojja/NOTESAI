@@ -1,6 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 import sqlite3
-from ai_helper import embed_note_and_store, rag_query # type: ignore
+from ai_helper import embed_note_and_store, rag_query, clear_chroma_notes # type: ignore
+
+#from ai_helper import clear_chroma_notes  # or reset_chroma_notes
+
 
 app = Flask(__name__)
 DB_NAME = "notes.db"
@@ -46,6 +49,11 @@ def ask():
     with sqlite3.connect(DB_NAME) as conn:
         notes = conn.execute("SELECT * FROM notes").fetchall()
     return render_template('index.html', notes=notes, results=results)
+
+@app.route("/clear_notes", methods=["POST"])
+def clear_notes():
+    clear_chroma_notes()  # or reset_chroma_notes()
+    return jsonify({"message": "All notes cleared successfully!"}) # type: ignore
 
 
 
