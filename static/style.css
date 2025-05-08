@@ -33,10 +33,10 @@ h3 {
 }
 
 h4 {
-    color: #742727;
+    color: #963939;
     font-size: 1.1rem;
     margin-top: 40px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #000000;
     padding-bottom: 8px;
 }
 
@@ -163,6 +163,73 @@ button[type="submit"]:hover {
     color: #b71c1c;
     text-decoration: underline;
 }
+
+body {
+    margin-left: 220px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    background-color: #f4f4f4;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.sidebar h4 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.note-item {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.note-title {
+    display: inline-block;
+    cursor: pointer;
+    font-weight: 500;
+    color: #333;
+}
+
+.note-title:hover {
+    text-decoration: underline;
+}
+
+.note-actions {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.note-item.hover .note-actions {
+    display: inline-block;
+}
+
+.note-actions a {
+    margin-left: 8px;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.note-actions a:hover {
+    opacity: 0.8;
+}
+
 
 /* Responsiveness (Basic)  */
 @media (max-width: 768px) {

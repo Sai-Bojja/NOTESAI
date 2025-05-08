@@ -22,8 +22,8 @@ init_db()
 @app.route('/')
 def index():
     with sqlite3.connect(DB_NAME) as conn:
-        notes = conn.execute("SELECT * FROM notes").fetchall()
-    return render_template('index.html', notes=notes)
+        notes = conn.execute("SELECT id, title FROM notes").fetchall()
+    return render_template('index.html', notes=notes, results=None)
 
 @app.route('/add', methods=['POST'])
 def add_note():
@@ -33,7 +33,7 @@ def add_note():
         cur = conn.cursor()
         cur.execute("INSERT INTO notes (title, content) VALUES (?, ?)", (title, content))
         note_id = cur.lastrowid
-    embed_note_and_store(note_id, title, content)  # <--- Add this line
+    embed_note_and_store(note_id, title, content)  
     return redirect(url_for('index'))
 
 @app.route('/delete/<int:note_id>')
@@ -45,15 +45,24 @@ def delete_note(note_id):
 @app.route('/ask', methods=['POST'])
 def ask():
     query = request.form['query']
-    results = rag_query(query)  # Use new function
+    results = rag_query(query)  
     with sqlite3.connect(DB_NAME) as conn:
-        notes = conn.execute("SELECT * FROM notes").fetchall()
+        notes = conn.execute("SELECT id, title FROM notes").fetchall()
     return render_template('index.html', notes=notes, results=results)
 
 @app.route("/clear_notes", methods=["POST"])
 def clear_notes():
     clear_chroma_notes()  # or reset_chroma_notes()
     return jsonify({"message": "All notes cleared successfully!"}) # type: ignore
+
+@app.route('/get_note/<int:note_id>')
+def get_note(note_id):
+    with sqlite3.connect(DB_NAME) as conn:
+        note = conn.execute("SELECT title, content FROM notes WHERE id = ?", (note_id,)).fetchone()
+        if note:
+            return jsonify({'id': note_id, 'title': note[0], 'content': note[1]})
+        else:
+            return jsonify({'error': 'Note not found'}), 404
 
 
 

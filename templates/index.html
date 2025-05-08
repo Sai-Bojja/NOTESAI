@@ -28,18 +28,85 @@
     </div>
     {% endif %}
 
-    <h4>Saved Notes</h4>
-    {% for note in notes %}
-        <div class="note">
-            <h3>{{ note[1] }}</h3>
-            <p>{{ note[2] }}</p>
-            <a href="/delete/{{ note[0] }}">Delete</a>
+    <div class="sidebar">
+        <h4>Saved Notes</h4>
+        <ul id="note-list">
+            {% for note in notes %}
+                <li>
+                    <a href="#" data-note-id="{{ note[0] }}" onclick="loadNote(this)">{{ note[1] }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div id="note-content-area" style="margin-top: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
+        <h3>Note Content</h3>
+        <div id="full-note-content">
+            Click on a note in the sidebar to view its full content.
         </div>
-    {% endfor %}
+    </div>
+    
+    <script>
+        function loadNote(element) {
+            const noteId = element.getAttribute('data-note-id');
+            fetch(`/get_note/${noteId}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('full-note-content').innerHTML = `<h3>${data.title}</h3><p>${data.content}</p>`;
+                })
+                .catch(error => {
+                    console.error("Error fetching note:", error);
+                    document.getElementById('full-note-content').innerText = "Failed to load note content.";
+                });
+        }
+    </script>
+
+    <style>
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 200px;
+            height: 100%;
+            background-color: #f4f4f4;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+
+        .sidebar h4 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .sidebar ul li a:hover {
+            text-decoration: underline;
+        }
+
+        body {
+            margin-left: 220px; /* Adjust to accommodate the sidebar width */
+        }
+    </style>
 
     <!-- Clear All Notes Button -->
     <div style="margin-top: 30px;">
-        <button id="clear-notes-btn">Clear All Notes</button>
+        <button id="clear-notes-btn">Clear All Notes </button>
         <p id="clear-status" style="color: green; font-weight: bold;"></p>
     </div>
 
