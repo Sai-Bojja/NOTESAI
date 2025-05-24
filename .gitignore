@@ -1,0 +1,17 @@
+# Ignore cache and temp files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore DBs in production (optional - if you'll recreate/migrate)
+notes.db
+chroma_db/
+
+# Ignore OS/system files
+.DS_Store
+
+# Ignore local or dev files
+*.log
+*.env
+.vscode/
+.idea/
